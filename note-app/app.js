@@ -18,8 +18,20 @@
 // console.log(validator.isEmail('naboth@gmail.com'))
 
 // import validator from 'validator';
-const validator = require('validator')
+// const validator = require('validator')
 
-console.log(validator.isURL('www.naboth.com'))
+// console.log(validator.isURL('www.naboth.com'))
+
+const chalk = require('chalk')
+
+const greenMsg = chalk.green('Success!')
+const boldMsg = chalk.blue.bgRed.bold('Failure')
+
+console.log(greenMsg)
+console.log(boldMsg)
+
+
+
+
 
 
