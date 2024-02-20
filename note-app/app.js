@@ -23,12 +23,62 @@
 // console.log(validator.isURL('www.naboth.com'))
 
 const chalk = require('chalk')
+const yargs = require('yargs')
 
-const greenMsg = chalk.green('Success!')
-const boldMsg = chalk.blue.bgRed.bold('Failure')
 
-console.log(greenMsg)
-console.log(boldMsg)
+yargs.version('1.1.0')
+
+//create yarg add command
+yargs.command({
+    command:'add',
+    describe: 'add new note',
+    handler: () => {console.log('adding new note')}
+})
+
+// Create remove command
+
+yargs.command({
+    command: 'remove',
+    describe: 'Remove note',
+    handler: () => {
+        console.log('removing data')
+    }
+})
+
+// Create read command
+
+yargs.command({
+    command: 'read',
+    describe: 'read note',
+    handler: () => {
+        console.log('Read notes')
+    }
+})
+
+// Create list command
+
+yargs.command({
+    command: 'list',
+    describe: 'list Notes',
+    handler: () => {
+        console.log('list notes')
+    }
+})
+//add,remove,read,list
+
+
+
+// console.log(process.argv)
+console.log(yargs.argv)
+
+// const command = process.argv[2]
+
+// if (command === 'add') {
+    
+//     console.log('Adding Notes')
+// } else if (command === 'Remove') {
+//     console.log('Removing Note')
+// }
 
 
 
