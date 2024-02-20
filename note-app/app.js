@@ -1,6 +1,25 @@
-const fs = require('fs')
+// const addNumbers = require('./utilis.js');
 
-// fs.writeFileSync('notes.txt', 'My name is Andrew.')
+// const sum = addNumbers(4,-2)
 
-fs.appendFileSync('notes.txt', ' I live in Philadelphia.')
+// console.log(sum);
+
+// const chall1 = require('./chall1.js');
+
+// const output = chall1('am new')
+
+// console.log(output);
+
+// const getNotes = require('./notes.js');
+
+// const output = getNotes('Your Notes...')
+
+// console.log(output)
+// console.log(validator.isEmail('naboth@gmail.com'))
+
+// import validator from 'validator';
+const validator = require('validator')
+
+console.log(validator.isURL('www.naboth.com'))
+
 
