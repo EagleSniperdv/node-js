@@ -15,10 +15,28 @@ const fs = require('fs')
 
 // console.log(bookParsed)
 
+// const dataBuffer = fs.readFileSync('1-json.json')
+
+// const dataJson = dataBuffer.toString()
+
+// const data = JSON.parse(dataJson)
+
+// console.log(data)
+
 const dataBuffer = fs.readFileSync('1-json.json')
 
 const dataJson = dataBuffer.toString()
 
 const data = JSON.parse(dataJson)
 
-console.log(data)
+data.name = "kenny"
+data.Age = "32"
+
+const updateJson = JSON.stringify(data)
+
+fs.writeFileSync('1-json.json', updateJson)
+
+
+
+
+// console.log()
