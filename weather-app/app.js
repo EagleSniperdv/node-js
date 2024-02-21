@@ -1,11 +1,14 @@
-console.log('starting')
+const request = require('postman-request') 
 
-setTimeout(() => {
-    console.log('timer')
-}, 2000)
+const url = 'http://api.weatherapi.com/v1/current.json?key=a6a849fcefea4397837113529242102&q=london&aqi=yes'
 
-setTimeout(() => {
-    console.log(' 0 timer')
-}, 0)
+request({
+    url: url
+},
+(error,response) => {
+    // const data = JSON.parse(IncomingMessage)
+    console.log(response)
 
-console.log('stopping')
+    debugger
+    // console.log(data.body.location)
+})
