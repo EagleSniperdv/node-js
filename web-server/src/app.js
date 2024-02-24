@@ -44,6 +44,18 @@ app.get('/weather',(req,res) => {
     res.send('weather page')
 })
 
+app.get('/help/*', (req,res) => {
+    res.render('404',{
+        message:'Help page Not found'
+    })
+})
+
+app.get('*',(req,res) => {
+    res.render('404',{
+        message:'Page Not found'
+    })
+})
+
 app.listen(3000,() => {
     console.log('server is up and running localhost://3000')
 })
