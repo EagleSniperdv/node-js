@@ -1,17 +1,22 @@
 const path = require('path')
 const express = require('express')
+const hbs = require('hbs')
 
-// console.log(__dirname)
-// console.log(path.join(__dirname, '../public/index.html'))
+console.log(__dirname)
+console.log(path.join(__dirname, '../public/index.html'))
 
 
 const app = express()
 
 const publicDir = path.join(__dirname, '../public')
+const viewPath = path.join(__dirname,'../templates/views')
+const partialPath = path.join(__dirname,'../templates/partials')
 
 app.use(express.static(publicDir))
 
 app.set('view engine','hbs')
+app.set('views', viewPath)
+hbs.registerPartials(partialPath)
 
 app.get('',(req,res) => {
     res.render('index',{
