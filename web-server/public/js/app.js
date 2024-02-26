@@ -16,7 +16,7 @@ weatherForm.addEventListener('submit',(e) => {
     console.log(address)
 
     message1.textContent = 'Loading...'
-    // message2.textContent = ''
+    
     
 
 
@@ -28,7 +28,7 @@ weatherForm.addEventListener('submit',(e) => {
                 message1.textContent = data.e
             } else {
                 message1.textContent = data.forecast.title
-                // message2.textContent =  data.forecast.longitude
+                message2.textContent =  data.forecast.localTime
                 console.log(data)
                 // console.log(data.forecast.longitude)
             }
