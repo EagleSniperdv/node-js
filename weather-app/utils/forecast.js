@@ -1,4 +1,4 @@
-const req=require('postman-request')
+const req = require('postman-request')
 
 const forecast = (address,callback) => {
 
