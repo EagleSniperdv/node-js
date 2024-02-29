@@ -146,6 +146,37 @@ app.post('/weather2',async (req,res) => {
     // res.send(req.body)
 })
 
+app.put('/weather2/:id',async (req,res) => {
+    try {
+        const {id} = req.params
+        const product = await Weather.findByIdAndUpdate(id, req.body)
+        
+        if(!product) {
+            return res.status(404).json({message:"product not found"})
+        }
+
+        const updateProduct = await Weather.findById(id)
+        res.status(200).json(updateProduct)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+app.delete('/weather2/:id',async (req,res) => {
+    try {
+        const {id} = req.params
+        const product = await Weather.findByIdAndDelete(id)
+
+        if(!product) {
+            return res.status(404).json({message:"Npt found"})
+        }
+
+        res.status(200).json({message:"Product deleted Successfully"})
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
 
 mongoose.connect("mongodb+srv://nabothongwenyi40:7M9wTbZXcTxA2GvV@nodebackend.oitngul.mongodb.net/first-collection?retryWrites=true&w=majority&appName=nodebackend")
 .then(() => {
