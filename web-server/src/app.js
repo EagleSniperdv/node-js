@@ -108,11 +108,30 @@ app.get('/help/*', (req,res) => {
 //     })
 // })
 
-app.get('*',(req,res) => {
-    res.render('404',{
-        message:'Page Not found'
-    })
+// app.get('*',(req,res) => {
+//     res.render('404',{
+//         message:'Page Not found'
+//     })
+// })
+
+app.get('/weather2', async (req,res) => {
+    try {
+        const products = await Weather.find({})
+        res.status(200).json(products)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
 })
+
+app.get('/weather2/:id', async (req,res) => {
+    try {
+        const {id} = req.params
+        const product = await Weather.findById(id)
+        res.status(200).json(product)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})  
 
 app.post('/weather2',async (req,res) => {
     try {
