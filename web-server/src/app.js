@@ -1,8 +1,16 @@
-const path = require('path')
 const express = require('express')
+const mongoose = require('mongoose')
+// const mongodb = require('mongodb')
+// const MongoClient = mongodb.MongoClient
+
+// const connectionUrl = 'mongodb://127.0.0.1:27017'
+// const databaseName = 'back-end'
+const path = require('path')
 const hbs = require('hbs')
 const geocode = require('./utils/geocode')
 const forecast =  require('./utils/forecast')
+
+const Weather = require('../models/weather.time.js')
 
 
 // console.log(__dirname)
@@ -10,6 +18,8 @@ const forecast =  require('./utils/forecast')
 
 
 const app = express()
+
+app.use(express.json())
 
 const publicDir = path.join(__dirname, '../public')
 const viewPath = path.join(__dirname,'../templates/views')
@@ -104,6 +114,31 @@ app.get('*',(req,res) => {
     })
 })
 
+app.post('/weather2',async (req,res) => {
+    try {
+        const weather = await Weather.create(req.body)
+        res.status(200).json(weather)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: error.message})
+
+    }
+    // console.log(req.body)
+    // res.send(req.body)
+})
+
+
+mongoose.connect("mongodb+srv://nabothongwenyi40:7M9wTbZXcTxA2GvV@nodebackend.oitngul.mongodb.net/first-collection?retryWrites=true&w=majority&appName=nodebackend")
+.then(() => {
+    console.log("connection successful")
+})
+.catch((e) => {
+    console.log("Connection failed.Retry...")
+    console.log(e)
+})
+
 app.listen(3000,() => {
     console.log('server is up and running localhost://3000')
 })
+
+// MongoClient.connect(connectionUrl,{useNewUrlParser: true})
