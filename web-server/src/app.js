@@ -134,7 +134,7 @@ app.get('/weather2/:id', async (req,res) => {
 })  
 
 app.post('/weather2',async (req,res) => {
-    try {
+    try { 
         const weather = await Weather.create(req.body)
         res.status(200).json(weather)
     } catch (error) {
