@@ -27,6 +27,17 @@ app.post('/task',async (req,res) => {
     }
 })
 
+app.post('/users/login', async (req,res) => {
+    try {
+
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        res.send(user)
+        
+    } catch (error) {
+        res.status(400).send()
+    }
+})
+
 app.get('/users',async (req,res) => {
     try {
         const users = await User.find({})
@@ -139,3 +150,30 @@ mongoose.connect("mongodb+srv://nabothongwenyi40:7M9wTbZXcTxA2GvV@nodebackend.oi
 app.listen(3000,() => {
     console.log('Server running at port 3000')
 })
+
+
+// const { createHash } = require('crypto');
+
+// function hash(input) {
+//     return createHash('sha256').update(input).digest('base64');
+// }
+
+
+// const password = 'Mombasa@2000'
+// const hashPassword = hash(password)
+
+// console.log(password)
+// console.log(hashPassword)
+
+
+// const bcrypt = require('bcrypt')
+
+// const myFunc = async () => {
+//     const password = 'Mombasa@2000'
+//     const bcryptPassword = await bcrypt.hash(password,8)
+
+//     console.log(password)
+//     console.log(bcryptPassword)
+// }
+
+// myFunc()
