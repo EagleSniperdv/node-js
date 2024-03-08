@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const UserSchema = mongoose.Schema(
     {
@@ -47,8 +48,26 @@ const UserSchema = mongoose.Schema(
             }
         },
 
+        tokens: [{
+            token: {
+                type: String,
+                required: true
+            }
+        }]
+
     }
 )
+
+UserSchema.methods.generateAuthToken = async function () {
+
+    const user = this
+
+    const token = jwt.sign({id: user.id.toString()},'thisismynewcourse')
+
+    user.tokens = user.tokens.concat({token})
+    
+    return token
+}
 
 UserSchema.statics.findByCredentials = async (email, password) => {
 

@@ -6,13 +6,30 @@ const Task = require('../models/task.js')
 
 const app = express()
 
+
+app.use((req,res,next) => {
+    console.log(req.method,req.path)
+
+    if (req.method === 'GET') {
+        res.send('GET requests are disabled')
+    } else {
+        
+        next()
+    }
+
+})
+
+app.use((req, res, next) => {
+    res.status(503).send("check back later")
+})
 app.use(express.json())
 
 //create instance in db
 app.post('/users',async (req,res) => {
     try {
         const user =  await User.create(req.body)
-        res.status(200).json(user)
+        const token = await user.generateAuthToken()
+        res.status(200).send({user, token})
     } catch (error) {
         res.status(500).json({message: error.message})
     }
@@ -31,7 +48,8 @@ app.post('/users/login', async (req,res) => {
     try {
 
         const user = await User.findByCredentials(req.body.email, req.body.password)
-        res.send(user)
+        const token = await user.generateAuthToken()
+        res.send({user,token})
         
     } catch (error) {
         res.status(400).send()
@@ -151,6 +169,22 @@ app.listen(3000,() => {
     console.log('Server running at port 3000')
 })
 
+
+
+const jwt = require('jsonwebtoken')
+
+const myFunc = async () => {
+    const token = await jwt.sign(
+        {id:"abc123"},
+        "thisismynewcourse",
+        {expiresIn:"7 days"})
+    console.log(token)
+
+    const data = await jwt.verify(token,'thisismynewcourse')
+    console.log(data)
+}
+
+myFunc()
 
 // const { createHash } = require('crypto');
 
