@@ -1,27 +1,28 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-const User = require('../models/user.js')
-const Task = require('../models/task.js')
+const User = require('./models/user.js')
+const Task = require('./models/task.js')
+const auth = require('./middleware/auth.js')
 
 const app = express()
 
 
-app.use((req,res,next) => {
-    console.log(req.method,req.path)
+// app.use((req,res,next) => { 
+//     console.log(req.method,req.path)
 
-    if (req.method === 'GET') {
-        res.send('GET requests are disabled')
-    } else {
+//     if (req.method === 'GET') {
+//         res.send('GET requests are disabled')
+//     } else {
         
-        next()
-    }
+//         next()
+//     }
 
-})
+// })
 
-app.use((req, res, next) => {
-    res.status(503).send("check back later")
-})
+// app.use((req, res, next) => {
+//     res.status(503).send("check back later")
+// })
 app.use(express.json())
 
 //create instance in db
@@ -56,13 +57,8 @@ app.post('/users/login', async (req,res) => {
     }
 })
 
-app.get('/users',async (req,res) => {
-    try {
-        const users = await User.find({})
-        res.status(200).json(users)
-    } catch (error) {
-        res.status(500).json({message: error.message})
-    }
+app.get('/users/me',auth,async (req,res) => {
+    res.send(req.user)
 })
 
 app.get('/users/:id', async (req,res) => {
@@ -147,7 +143,7 @@ app.delete('/users/:id', async (req,res) => {
         }
 
 
-        res.status(200).json("task deleted successfully")
+        res.status(200).json("user deleted successfully")
     } catch (error) {
         res.status(500).json({message: error.message})
     }
@@ -162,29 +158,29 @@ mongoose.connect("mongodb+srv://nabothongwenyi40:7M9wTbZXcTxA2GvV@nodebackend.oi
 })
 .catch((e) => {
     console.log("Connection failed.Retry...")
-    console.log(e)
+    // console.log(e)
 })
 
 app.listen(3000,() => {
-    console.log('Server running at port 3000')
+    console.log('Server is running at port 3000')
 })
 
 
 
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
-const myFunc = async () => {
-    const token = await jwt.sign(
-        {id:"abc123"},
-        "thisismynewcourse",
-        {expiresIn:"7 days"})
-    console.log(token)
+// const myFunc = async () => {
+//     const token = await jwt.sign(
+//         {id:"abc123"},
+//         "thisismynewcourse",
+//         {expiresIn:"7 days"})
+//     console.log(token)
 
-    const data = await jwt.verify(token,'thisismynewcourse')
-    console.log(data)
-}
+//     const data = await jwt.verify(token,'thisismynewcourse')
+//     console.log(data)
+// }
 
-myFunc()
+// myFunc()
 
 // const { createHash } = require('crypto');
 
