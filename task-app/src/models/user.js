@@ -55,7 +55,7 @@ const UserSchema = mongoose.Schema(
             }
         }]
 
-    }
+    },{timestamps: true}
 )
 
 UserSchema.methods.generateAuthToken = async function () {
@@ -89,7 +89,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
 UserSchema.pre('save', async function (next)  {
     const user = this 
 
-    console.log('Just before saving')
+    console.log('user-schema Just before saving')
 
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password,8)

@@ -16,7 +16,8 @@ const auth =async (req,res,next) => {
         if(!user) {
             console.log("user not found ")
         }
-
+        
+        req.token = token
         req.user = user
         
 
