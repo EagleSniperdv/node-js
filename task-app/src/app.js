@@ -176,9 +176,7 @@ mongoose.connect("mongodb+srv://nabothongwenyi40:7M9wTbZXcTxA2GvV@nodebackend.oi
     // console.log(e)
 })
 
-app.listen(3000,() => {
-    console.log('Server is running at port 3000')
-})
+
 
 
 
@@ -244,8 +242,10 @@ const upload = multer({
 //     throw new Error('From my middleware')
 // }
 
-app.post('/upload',upload.single('upload'),(req,res) => {
-    res.send()
-},(error,req,res,next) => {
-    res.status(400).send({error: error.message})
-})
+// app.post('/upload',upload.single('upload'),(req,res) => {
+//     res.send()
+// },(error,req,res,next) => {
+//     res.status(400).send({error: error.message})
+// })
+
+module.exports = app

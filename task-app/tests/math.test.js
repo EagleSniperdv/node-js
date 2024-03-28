@@ -37,3 +37,10 @@ test('celc to faren', () => {
     expect(temp).toBe(32)
 
 })
+
+// test('async test', (done) => {
+//     setTimeout(() => {
+//         expect(1).toBe(2)
+//         done()
+//     },2000)
+// })
